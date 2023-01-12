@@ -1,0 +1,30 @@
+using UnityEngine;
+
+public class CameraShake
+{
+    private Vector3 _shakeOffset;
+    private float _shakeMaxValue;
+    private float _shakeTimer;
+
+    public Vector3 UpdateCameraShake()
+    {
+        if (_shakeTimer > 0)
+        {
+            _shakeMaxValue -= _shakeTimer * 0.1f;
+            _shakeOffset = new Vector3(Random.Range(-_shakeMaxValue, _shakeMaxValue), Random.Range(-_shakeMaxValue, _shakeMaxValue), 0);
+            _shakeTimer -= Time.deltaTime;
+            return _shakeOffset;
+        }
+        else
+        {
+            _shakeOffset = Vector3.zero;
+            return _shakeOffset;
+        }
+    }
+
+    public void ApplyCameraShake(float intensity, float time)
+    {
+        _shakeTimer = time;
+        _shakeMaxValue = intensity;
+    }
+}
